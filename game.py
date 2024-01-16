@@ -14,12 +14,33 @@ class Game:
         #Sets FPS at 60
         self.clock = pygame.time.Clock()
 
+        #Loads Img on screen
+        self.img = pygame.image.load('data/images/clouds/cloud_1.png')
+        self.img_pos = [160, 260]
+        self.movement = [False, False]
+
     def run(self):
         while True:
+            self.img_pos[1] += self.movement[1] - self.movement[0]
+            self.screen.blit(self.img, self.img_pos)
+
+            #Exits the window
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: #Exits the window
+                if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+                #Moves Item
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        self.movement[0] = True
+                    if event.key == pygame.K_DOWN:
+                        self.movement[1] = True
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_UP:
+                        self.movement[0] = False
+                    if event.key == pygame.K_DOWN:
+                        self.movement[1] = False
 
             pygame.display.update()
             self.clock.tick(60)
