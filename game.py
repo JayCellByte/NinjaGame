@@ -20,6 +20,8 @@ class Game:
        #Movement
         self.movement = [False, False]
 
+        self.collision_area = pygame.Rect(50, 50, 300, 50)
+
         #Load assets
         self.assets = {
             'decor': load_images('tiles/decor'),
@@ -43,7 +45,7 @@ class Game:
             self.tilemap.render(self.display)
             
             #Player Movemet
-            self.player.update((self.movement[1] - self.movement[0], 0))
+            self.player.update(self.tilemap, (self.movement[1] - self.movement[0], 0))
             self.player.render(self.display)
 
             #Exits the window
